@@ -1,8 +1,8 @@
 """
-__author__ = 'Max Luckystar'
+__author__ = 'Max Data'
 __email__ = 'max.bigdata@yahoo.com'
 __ website__ = ''
-__ copytught__ = 'Copyright 2019, Max Luckystar'
+__ copytught__ = 'Copyright 2019, Max Data'
 __version__ = '1.0'
 """
 
@@ -237,7 +237,7 @@ if __name__ == "__main__":
         # Set up database connection credentials
     USER = "postgres"
     PASSWORD = input("Enter your Database password, please: ")
-    HOST = "localhost"  # "127.0.0.1"
+    HOST = "localhost"
     PORT = "5433"
     DATABASE = "crm"
 
@@ -257,7 +257,6 @@ if __name__ == "__main__":
         'email_template', 'templ', 'id = 3')
     print("Email message template...")
     if EMAIL_TEMPLATE:
-        # message_template = Template(email_template[0][0])
         MESSAGE_TEMPLATE_HTML = Template(EMAIL_TEMPLATE[0][0])
 
     # Get first name, personal email if exists otherwise work email
@@ -266,15 +265,12 @@ if __name__ == "__main__":
         "WHERE (email is NOT NULL OR email_work is NOT NULL)",
         'id_addr')
     print("Proceed with the dataset...")
+
     if FIRST_EMAIL:
         for i, row in enumerate(FIRST_EMAIL):
-            # if i>1:
-            #     break
-            if i < (-1):
-                continue
             # create message
             email_message = Email(from_=SENDER_EMAIL, subject=SUBJECT)
-            print("      ", row[:2])
+            print("      {}: {}".format(i, row[:2]))
             email_message.email_create(
                 email_to=row[1], email_bcc=SENDER_EMAIL,
                 test=False, test_add=row[0],)
@@ -290,6 +286,7 @@ if __name__ == "__main__":
                     'Image', image=img.read(),
                     image_type=content_subtype,
                     image_filename=IMAGE_FILENAME)
+
             # Create secure SSL context
             context = ssl.create_default_context()
             with smtplib.SMTP_SSL(
