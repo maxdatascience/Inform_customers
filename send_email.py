@@ -15,13 +15,26 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import psycopg2
 class PostgreSqlDb:
+    """ Actions necessary to get data from PostgreSQL database
+
+    Returns:
+        dataset:  Dataset containing selected records
+    """
 
     def __init__(self, user, password, host='localhost', port='5432',
                  database='postgres'):
-        """ Initialize the connection properties to PostgreSQL
-        database
-        """
+        """Initialize connection to PostgreSQL server database
 
+        Args:
+            user (str): PostgreSQL server User
+            password (str): PostgreSQL server Password
+            host (str, optional): PosgtgreSQL server name or IP
+            address. Defaults to 'localhost'
+            port (str, optional): PosgtgreSQL server port. Defaults to
+            '5432'
+            database (str, optional): Database name. Defaults to
+            'postgres'
+        """
         self.user = user
         self.password = password
         self.host = host
@@ -31,7 +44,8 @@ class PostgreSqlDb:
         self.cursor = None
 
     def disconnect_db(self):
-        # Close database connection.
+        """Close connection to PostgreSQL server
+        """
         if self.connection:
             self.cursor.close()
             self.connection.close()
@@ -40,6 +54,9 @@ class PostgreSqlDb:
             print("PostgreSQL connection is closed")
 
     def connect_db(self):
+        """Open connection to PostgreSQL server with parameters in the
+        object and inform about the version of the database engine
+        """
         try:
             self.connection = psycopg2.connect(
                 user=self.user, password=self.password,
@@ -59,6 +76,27 @@ class PostgreSqlDb:
                 self, table, firstname_col='first_name',
                 email_col='email', work_email_col='work_email',
                 condition=None, orderby_col='id'):
+        """ Extract first name, email into rows dataset according
+        to request and close connection returning received dataset.
+        If email column is empty take email from column containing work
+        email
+
+        Args:
+            table (str): Table name in the database
+            firstname_col (str, optional): Column name containing the
+            first name. Defaults to 'first_name'
+            email_col (str, optional): Column name containing email.
+            Defaults to 'email'
+            work_email_col (str, optional): Column name containing work
+            email. Defaults to 'work_email'
+            condition (str, optional): WHERE clause to filter records.
+            Defaults to None
+            orderby_col (str, optional): Column name to sort results.
+            Defaults to 'id'
+
+        Returns:
+            dataset: Dataset containing Names and emails
+        """
         try:
             self.connect_db()
             # Get first_name, email from database, if personal email
@@ -80,6 +118,17 @@ class PostgreSqlDb:
         return rows
 
     def email_template(self, table, email_template, id_col_value):
+        """Take email template from the database and return it as
+        dataset
+
+        Args:
+            table (str): Table name containing templates of emails
+            email_template (str): Column containing email template
+            id_col_value (str): WHERE clause to filter email template
+
+        Returns:
+            dataset: Dataset containing email template
+        """
         try:
             self.connect_db()
             # Get template from database with requested id
@@ -96,15 +145,25 @@ class PostgreSqlDb:
         return rows
 
 class Email:
+    """ Actions necessary to create email
+    """
 
     def __init__(
             self, smtp='smtp.gmail.com', port=465, from_=None,
             subject='Test', message=None):
-        """ Initialize the email class
+        """Initialize email class, define connection details, and fill
+        out base attributes of the email message. Default SMTP
+        connection details are host - google.com and port SSL 465 or
+        TLS 587
+
+        Args:
+            smtp (str, optional): SMTP host. Defaults to
+            'smtp.gmail.com'
+            port (int, optional): SMTP port. Defaults to 465
+            from_ (str, optional): sender email. Defaults to None
+            subject (str, optional): Email subject. Defaults to 'Test'
+            message (str, optional): Email body. Defaults to None
         """
-        # Set up email credentials and SMTP connection details
-        # redentials default is google.com host and port TLS 587 SSL
-        # 465 TLS/SSL Yes
         self.smtp = smtp
         self.port = port
         self.from_ = from_
@@ -116,11 +175,27 @@ class Email:
     def add_section(
             self, section='Multipart', subtype='html', msg=None,
             image=None, image_type=None, image_filename=None):
+        """Created parts of the email Multipart - defines Header fields
+        of the email message. Text-html - add html body to the email
+        message. Image -  embed image into email message.
+
+        Args:
+            section (str, optional): Part of message to create.
+            Defaults to 'Multipart'-create base message
+            subtype (str, optional): Type of email content. Defaults to
+            'html'
+            msg (str, optional): Message content, body. Defaults to None
+            image (str, optional): Image file name. Defaults to None
+            image_type (str, optional): Content of image file. Defaults
+            to None
+            image_filename (str, optional): Image file name. Defaults
+            to None
+        """
         if section == 'Multipart':
             self.message = MIMEMultipart()
             self.message['To'] = self.to_
             self.message['From'] = self.from_
-            self.message['Bcc'] = self.bcc   # use for mass emails
+            self.message['Bcc'] = self.bcc   # used for mass emails
             self.message['Subject'] = self.subject
         if (section == 'Text') and (subtype == 'html'):
             # msg.attach(MIMEText(message, 'plain'))
@@ -134,8 +209,19 @@ class Email:
             self.message.attach(tempvar)
 
     def email_create(self, email_to, email_bcc, test, test_add):
-        """ if test is true then the to email will be generated
-        automatically by adding +test_add before @ in from email
+        """ Define the recipient of the email and save it in the object
+        selt.to_  The recipient email depend on the test mode. If it is
+        False - recipient email is taken from emil_to. If it is True -
+        recipient email is based on the self.from_ by adding +test_add
+        before @. Used to send email to yourself using google.com
+        feature for testing purpose. Then called function to create
+        email.
+
+        Args:
+            email_to (str): recipient email
+            email_bcc (str): blind carbon copy recipient
+            test (Boolean): True-test mode, False-production mode
+            test_add (str): suffix add to email for test purpose
         """
         if test:
             tempvar = list(self.from_.partition('@'))
@@ -156,8 +242,7 @@ if __name__ == "__main__":
     DATABASE = "crm"
 
     # Set up your email connection credentials
-    #sender_email = input("Type your email address here: ")
-    SENDER_EMAIL = 'max8.luckystar@gmail.com'
+    SENDER_EMAIL = input("Type your (sender) email address here: ")
     EMAIL_PASSWORD = input(
         "Enter your %s password, here:" % SENDER_EMAIL)
     IMAGE_FILENAME = 'NY.gif'  # Image file for attachment in email
