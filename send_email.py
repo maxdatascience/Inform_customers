@@ -1,8 +1,11 @@
 """
+Take template and address list from database and send email.
+
 __author__ = 'Max Data'
 __email__ = 'max.bigdata@yahoo.com'
 __ website__ = ''
-__ copytught__ = 'Copyright 2019, Max Data'
+
+__ copyright__ = 'Copyright 2019, Max Data'
 __version__ = '1.0'
 """
 
@@ -17,7 +20,7 @@ import psycopg2
 
 
 class PostgreSqlDb:
-    """ Actions necessary to get data from PostgreSQL database
+    """Actions necessary to get data from PostgreSQL database.
 
     Returns:
         dataset:  Dataset containing selected records
@@ -25,7 +28,7 @@ class PostgreSqlDb:
 
     def __init__(self, user, password, host='localhost', port='5432',
                  database='postgres'):
-        """Initialize connection to PostgreSQL server database
+        """Initialize connection to PostgreSQL server database.
 
         Args:
             user (str): PostgreSQL server User
@@ -46,8 +49,7 @@ class PostgreSqlDb:
         self.cursor = None
 
     def disconnect_db(self):
-        """Close connection to PostgreSQL server
-        """
+        """Close connection to PostgreSQL server."""
         if self.connection:
             self.cursor.close()
             self.connection.close()
@@ -56,7 +58,9 @@ class PostgreSqlDb:
             print("PostgreSQL connection is closed")
 
     def connect_db(self):
-        """Open connection to PostgreSQL server with parameters in the
+        """Connect to PostgreSQL database.
+
+        Open connection to PostgreSQL server with parameters in the
         object and inform about the version of the database engine
         """
         try:
@@ -78,7 +82,9 @@ class PostgreSqlDb:
                 self, table, firstname_col='first_name',
                 email_col='email', work_email_col='work_email',
                 condition=None, orderby_col='id'):
-        """ Extract first name, email into rows dataset according
+        """Extract first_name, email from PostgreSQL database.
+
+        Extract first name, email into rows dataset according
         to request and close connection returning received dataset.
         If email column is empty take email from column containing work
         email
@@ -120,7 +126,9 @@ class PostgreSqlDb:
         return rows
 
     def email_template(self, table, email_template, id_col_value):
-        """Take email template from the database and return it as
+        """Extract email template from PostgreSQL database.
+
+        Take email template from the database and return it as
         dataset
 
         Args:
@@ -148,13 +156,14 @@ class PostgreSqlDb:
 
 
 class Email:
-    """ Actions necessary to create email
-    """
+    """Actions necessary to create email."""
 
     def __init__(
             self, smtp='smtp.gmail.com', port=465, from_=None,
             subject='Test', message=None):
-        """Initialize email class, define connection details, and fill
+        """Initialize email class.
+
+        Initialize email class, define connection details, and fill
         out base attributes of the email message. Default SMTP
         connection details are host - google.com and port SSL 465 or
         TLS 587
@@ -178,7 +187,9 @@ class Email:
     def add_section(
             self, section='Multipart', subtype='html', msg=None,
             image=None, image_type=None, image_filename=None):
-        """Created parts of the email Multipart - defines Header fields
+        """Add part into multipart email message.
+
+        Created parts of the email Multipart - defines Header fields
         of the email message. Text-html - add html body to the email
         message. Image -  embed image into email message.
 
@@ -212,7 +223,9 @@ class Email:
             self.message.attach(tempvar)
 
     def email_create(self, email_to, email_bcc, test, test_add):
-        """ Define the recipient of the email and save it in the object
+        """Create Base part of email message.
+
+        Define the recipient of the email and save it in the object
         selt.to_  The recipient email depend on the test mode. If it is
         False - recipient email is taken from emil_to. If it is True -
         recipient email is based on the self.from_ by adding +test_add
