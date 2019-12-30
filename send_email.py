@@ -14,6 +14,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import psycopg2
+
+
 class PostgreSqlDb:
     """ Actions necessary to get data from PostgreSQL database
 
@@ -113,7 +115,7 @@ class PostgreSqlDb:
             print("Error while connecting to PostgreSQL", error)
             rows = None
         finally:
-            #Close database connection.
+            # Close database connection.
             self.disconnect_db()
         return rows
 
@@ -140,9 +142,10 @@ class PostgreSqlDb:
             print("Error while connecting to PostgreSQL", error)
             rows = None
         finally:
-            #Close database connection.
+            # Close database connection.
             self.disconnect_db()
         return rows
+
 
 class Email:
     """ Actions necessary to create email
@@ -225,7 +228,7 @@ class Email:
         """
         if test:
             tempvar = list(self.from_.partition('@'))
-            tempvar.insert(1, ''.join('+%s'%test_add))
+            tempvar.insert(1, ''.join('+{}'.format(test_add)))
             self.to_ = ''.join(tempvar)
         else:
             self.to_ = email_to
@@ -234,7 +237,7 @@ class Email:
 
 
 if __name__ == "__main__":
-        # Set up database connection credentials
+    # Set up database connection credentials
     USER = "postgres"
     PASSWORD = input("Enter your Database password, please: ")
     HOST = "localhost"
