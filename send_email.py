@@ -1,5 +1,4 @@
-"""
-Take template and address list from database and send email.
+"""Take template and address list from database and send email.
 
 __author__ = 'Max Data'
 __email__ = 'max.bigdata@yahoo.com'
@@ -22,23 +21,26 @@ import psycopg2
 class PostgreSqlDb:
     """Actions necessary to get data from PostgreSQL database.
 
-    Returns:
-        dataset:  Dataset containing selected records
+    :return: Dataset containing selected records
+    :rtype: dataset
     """
 
     def __init__(self, user, password, host='localhost', port='5432',
                  database='postgres'):
         """Initialize connection to PostgreSQL server database.
 
-        Args:
-            user (str): PostgreSQL server User
-            password (str): PostgreSQL server Password
-            host (str, optional): PosgtgreSQL server name or IP
-            address. Defaults to 'localhost'
-            port (str, optional): PosgtgreSQL server port. Defaults to
-            '5432'
-            database (str, optional): Database name. Defaults to
-            'postgres'
+        :param user: PostgreSQL server User
+        :type user: str
+        :param password: PostgreSQL server Password
+        :type password: str
+        :param host: PosgtgreSQL server name or IP, defaults to
+            'localhost'
+        :type host: str, optional
+        :param port: PosgtgreSQL server port. Defaults to '5432',
+            defaults to '5432'
+        :type port: str, optional
+        :param database: Database name, defaults to 'postgres'
+        :type database: str, optional
         """
         self.user = user
         self.password = password
@@ -84,26 +86,22 @@ class PostgreSqlDb:
                 condition=None, orderby_col='id'):
         """Extract first_name, email from PostgreSQL database.
 
-        Extract first name, email into rows dataset according
-        to request and close connection returning received dataset.
-        If email column is empty take email from column containing work
-        email
-
-        Args:
-            table (str): Table name in the database
-            firstname_col (str, optional): Column name containing the
-            first name. Defaults to 'first_name'
-            email_col (str, optional): Column name containing email.
-            Defaults to 'email'
-            work_email_col (str, optional): Column name containing work
-            email. Defaults to 'work_email'
-            condition (str, optional): WHERE clause to filter records.
-            Defaults to None
-            orderby_col (str, optional): Column name to sort results.
-            Defaults to 'id'
-
-        Returns:
-            dataset: Dataset containing Names and emails
+        :param table: Table name
+        :type table: str
+        :param firstname_col: Column name with first name, defaults to
+            'first_name'
+        :type firstname_col: str, optional
+        :param email_col: Column name with email, defaults to 'email'
+        :type email_col: str, optional
+        :param work_email_col: Column name with work email, defaults to
+            'work_email'
+        :type work_email_col: str, optional
+        :param condition: WHERE clause filter, defaults to None
+        :type condition: str, optional
+        :param orderby_col: Sort column name, defaults to 'id'
+        :type orderby_col: str, optional
+        :return: dataset with first name and email or work email
+        :rtype: dataset
         """
         try:
             self.connect_db()
@@ -128,16 +126,14 @@ class PostgreSqlDb:
     def email_template(self, table, email_template, id_col_value):
         """Extract email template from PostgreSQL database.
 
-        Take email template from the database and return it as
-        dataset
-
-        Args:
-            table (str): Table name containing templates of emails
-            email_template (str): Column containing email template
-            id_col_value (str): WHERE clause to filter email template
-
-        Returns:
-            dataset: Dataset containing email template
+        :param table: Table name with template
+        :type table: str
+        :param email_template: Column name with template
+        :type email_template: str
+        :param id_col_value: WHERE clause filter
+        :type id_col_value: str
+        :return: dataset with email template
+        :rtype: dataset
         """
         try:
             self.connect_db()
@@ -163,18 +159,16 @@ class Email:
             subject='Test', message=None):
         """Initialize email class.
 
-        Initialize email class, define connection details, and fill
-        out base attributes of the email message. Default SMTP
-        connection details are host - google.com and port SSL 465 or
-        TLS 587
-
-        Args:
-            smtp (str, optional): SMTP host. Defaults to
-            'smtp.gmail.com'
-            port (int, optional): SMTP port. Defaults to 465
-            from_ (str, optional): sender email. Defaults to None
-            subject (str, optional): Email subject. Defaults to 'Test'
-            message (str, optional): Email body. Defaults to None
+        :param smtp: SMTP host, defaults to 'smtp.gmail.com'
+        :type smtp: str, optional
+        :param port: SMTP port, defaults to 465
+        :type port: int, optional
+        :param from_: sender email, defaults to None
+        :type from_: str, optional
+        :param subject: email subject, defaults to 'Test'
+        :type subject: str, optional
+        :param message: email body, defaults to None
+        :type message: text template, optional
         """
         self.smtp = smtp
         self.port = port
@@ -189,21 +183,19 @@ class Email:
             image=None, image_type=None, image_filename=None):
         """Add part into multipart email message.
 
-        Created parts of the email Multipart - defines Header fields
-        of the email message. Text-html - add html body to the email
-        message. Image -  embed image into email message.
-
-        Args:
-            section (str, optional): Part of message to create.
-            Defaults to 'Multipart'-create base message
-            subtype (str, optional): Type of email content. Defaults to
-            'html'
-            msg (str, optional): Message content, body. Defaults to None
-            image (str, optional): Image file name. Defaults to None
-            image_type (str, optional): Content of image file. Defaults
-            to None
-            image_filename (str, optional): Image file name. Defaults
-            to None
+        :param section: type of part email message to add, defaults to
+            'Multipart'
+        :type section: str, optional
+        :param subtype: body message type, defaults to 'html'
+        :type subtype: str, optional
+        :param msg: contend of the message, defaults to None
+        :type msg: str, optional
+        :param image: image file name, defaults to None
+        :type image: str, optional
+        :param image_type: content of image file, defaults to None
+        :type image_type: str, optional
+        :param image_filename: image file name, defaults to None
+        :type image_filename: str, optional
         """
         if section == 'Multipart':
             self.message = MIMEMultipart()
@@ -222,22 +214,17 @@ class Email:
                 filename=image_filename)
             self.message.attach(tempvar)
 
-    def email_create(self, email_to, email_bcc, test, test_add):
-        """Create Base part of email message.
+    def email_create(self, email_to, email_bcc, test_add, test=True):
+        """Create Base part of email message, filling the Header.
 
-        Define the recipient of the email and save it in the object
-        selt.to_  The recipient email depend on the test mode. If it is
-        False - recipient email is taken from emil_to. If it is True -
-        recipient email is based on the self.from_ by adding +test_add
-        before @. Used to send email to yourself using google.com
-        feature for testing purpose. Then called function to create
-        email.
-
-        Args:
-            email_to (str): recipient email
-            email_bcc (str): blind carbon copy recipient
-            test (Boolean): True-test mode, False-production mode
-            test_add (str): suffix add to email for test purpose
+        :param email_to: receiver email
+        :type email_to: str
+        :param email_bcc: blind carbon copy receiver
+        :type email_bcc: str
+        :param test_add: suffix add to email for testing with google
+        :type test_add: str
+        :param test: mode to run function, defaults to True
+        :type test: bool, optional
         """
         if test:
             tempvar = list(self.from_.partition('@'))
