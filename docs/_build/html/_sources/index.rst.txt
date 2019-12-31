@@ -1,9 +1,9 @@
-.. Inform_customers documentation master file, created by
-   sphinx-quickstart on Mon Dec 30 23:07:35 2019.
+.. Inform customers documentation master file, created by
+   sphinx-quickstart on Tue Dec 31 17:01:45 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Inform_customers's documentation!
+Welcome to Inform customers's documentation!
 ============================================
 
 .. toctree::

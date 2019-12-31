@@ -3,9 +3,9 @@
 __author__ = 'Max Data'
 __email__ = 'max.bigdata@yahoo.com'
 __ website__ = ''
-
 __ copyright__ = 'Copyright 2019, Max Data'
 __version__ = '1.0'
+
 """
 
 import smtplib
