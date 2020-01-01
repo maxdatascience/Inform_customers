@@ -26,7 +26,7 @@ class PostgreSqlDb:
     """
 
     def __init__(self, user, password, host='localhost', port='5432',
-                 database='postgres'):
+                 db_='postgres'):
         """Initialize connection to PostgreSQL server database.
 
         :param user: PostgreSQL server User
@@ -39,14 +39,14 @@ class PostgreSqlDb:
         :param port: PosgtgreSQL server port. Defaults to '5432',
             defaults to '5432'
         :type port: str, optional
-        :param database: Database name, defaults to 'postgres'
-        :type database: str, optional
+        :param db_: Database name, defaults to 'postgres'
+        :type db_: str, optional
         """
         self.user = user
         self.password = password
         self.host = host
         self.port = port
-        self.database = database
+        self.db_ = db_
         self.connection = None
         self.cursor = None
 
@@ -68,7 +68,7 @@ class PostgreSqlDb:
         try:
             self.connection = psycopg2.connect(
                 user=self.user, password=self.password,
-                host=self.host, port=self.port, database=self.database)
+                host=self.host, port=self.port, db_=self.db_)
             self.cursor = self.connection.cursor()
             # Print PostgreSQL connection properties
             print(self.connection.get_dsn_parameters(), "\n")
@@ -236,66 +236,71 @@ class Email:
         self.add_section()
 
 
-if __name__ == "__main__":
+def main():
+    """Execute main module."""
     # Set up database connection credentials
-    USER = "postgres"
-    PASSWORD = input("Enter your Database password, please: ")
-    HOST = "localhost"
-    PORT = "5433"
-    DATABASE = "crm"
+    user = "postgres"
+    password = input("Enter your Database pass, please: ")
+    host = "localhost"
+    port = "5433"
+    db_ = "crm"
 
     # Set up your email connection credentials
-    SENDER_EMAIL = input("Type your (sender) email address here: ")
-    EMAIL_PASSWORD = input(
-        "Enter your %s password, here:" % SENDER_EMAIL)
-    IMAGE_FILENAME = 'NY.gif'  # Image file for attachment in email
-    SUBJECT = 'Happy New Year!'
-    SIGNATURE = """\
+    sender_email = input("Type your (sender) email address here: ")
+    email_password = input(
+        "Enter your %s password, here:" % sender_email)
+    image_filename = 'NY.gif'  # Image file for attachment in email
+    subject = 'Happy New Year!'
+    signature = """\
         ***<br>
         """
 
     # Get email template from database by id
-    POSTGRESQL_DB = PostgreSqlDb(USER, PASSWORD, HOST, PORT, DATABASE)
-    EMAIL_TEMPLATE = POSTGRESQL_DB.email_template(
+    postgresql_db = PostgreSqlDb(user, password, host, port, db_)
+    email_template = postgresql_db.email_template(
         'email_template', 'templ', 'id = 3')
     print("Email message template...")
-    if EMAIL_TEMPLATE:
-        MESSAGE_TEMPLATE_HTML = Template(EMAIL_TEMPLATE[0][0])
+    if email_template:
+        message_template_html = Template(email_template[0][0])
 
     # Get first name, personal email if exists otherwise work email
-    FIRST_EMAIL = POSTGRESQL_DB.email_list_from_db(
+    name_email = postgresql_db.email_list_from_db(
         'lead', 'first_name', 'email', 'email_work',
         "WHERE (email is NOT NULL OR email_work is NOT NULL)",
         'id_addr')
     print("Proceed with the dataset...")
 
-    if FIRST_EMAIL:
-        for i, row in enumerate(FIRST_EMAIL):
+    if name_email:
+        for i, row in enumerate(name_email):
             # create message
-            email_message = Email(from_=SENDER_EMAIL, subject=SUBJECT)
+            email_message = Email(from_=sender_email, subject=subject)
             print("      {}: {}".format(i, row[:2]))
             email_message.email_create(
-                email_to=row[1], email_bcc=SENDER_EMAIL,
+                email_to=row[1], email_bcc=sender_email,
                 test=False, test_add=row[0],)
-            messageHtml = MESSAGE_TEMPLATE_HTML.substitute(
-                PERSON_NAME=row[0].title(), SIGNATURE=SIGNATURE)
-            email_message.add_section('Text', 'html', msg=messageHtml)
+            message_html = message_template_html.substitute(
+                PERSON_NAME=row[0].title(), SIGNATURE=signature)
+            email_message.add_section('Text', 'html', msg=message_html)
 
             # Attach image file to email (inline)
-            with open(IMAGE_FILENAME, "rb") as img:
+            with open(image_filename, "rb") as img:
                 contenttype, content_subtype = (
                     mimetypes.guess_type(img.name)[0].split('/'))
                 email_message.add_section(
                     'Image', image=img.read(),
                     image_type=content_subtype,
-                    image_filename=IMAGE_FILENAME)
+                    image_filename=image_filename)
 
             # Create secure SSL context
             context = ssl.create_default_context()
             with smtplib.SMTP_SSL(
                     email_message.smtp, email_message.port,
                     context=context) as server:
-                server.login(email_message.from_, EMAIL_PASSWORD)
+                server.login(email_message.from_, email_password)
                 server.sendmail(
                     email_message.from_, email_message.to_,
                     email_message.message.as_string())
+
+
+if __name__ == "__main__":
+    main()
