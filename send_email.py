@@ -235,6 +235,49 @@ class Email:
         self.bcc = email_bcc
         self.add_section()
 
+    def process_name_email(
+            self, email_password, name_email, signature,
+            image_filename, message_template_html):
+        """Form and send email for each row.
+
+        :param email_password: sender password
+        :type email_password: str
+        :param name_email: name and email, defaults to None
+        :type name_email: dataset, optional
+        :param signature: signature in the email template
+        :type signature: text
+        :param image_filename: image file name
+        :type image_filename: str
+        :param message_template_html: contend of the message template
+        :type message_template_html: text
+        """
+        for i, row in enumerate(name_email):
+            # create message
+            print("      {}: {}".format(i, row[:2]))
+            self.email_create(
+                email_to=row[1], email_bcc=self.from_,
+                test=False, test_add=row[0],)
+            message_html = message_template_html.substitute(
+                PERSON_NAME=row[0].title(), SIGNATURE=signature)
+            self.add_section('Text', 'html', msg=message_html)
+
+            # Attach image file to email (inline)
+            with open(image_filename, "rb") as img:
+                contenttype, content_subtype = (
+                    mimetypes.guess_type(img.name)[0].split('/'))
+                self.add_section(
+                    'Image', image=img.read(),
+                    image_type=content_subtype,
+                    image_filename=image_filename)
+
+            # Create secure SSL context
+            context = ssl.create_default_context()
+            with smtplib.SMTP_SSL(
+                    self.smtp, self.port, context=context) as server:
+                server.login(self.from_, email_password)
+                server.sendmail(
+                    self.from_, self.to_, self.message.as_string())
+
 
 def main():
     """Execute main module."""
@@ -271,35 +314,11 @@ def main():
     print("Proceed with the dataset...")
 
     if name_email:
-        for i, row in enumerate(name_email):
-            # create message
-            email_message = Email(from_=sender_email, subject=subject)
-            print("      {}: {}".format(i, row[:2]))
-            email_message.email_create(
-                email_to=row[1], email_bcc=sender_email,
-                test=False, test_add=row[0],)
-            message_html = message_template_html.substitute(
-                PERSON_NAME=row[0].title(), SIGNATURE=signature)
-            email_message.add_section('Text', 'html', msg=message_html)
+        email_msg = Email(from_=sender_email, subject=subject)
 
-            # Attach image file to email (inline)
-            with open(image_filename, "rb") as img:
-                contenttype, content_subtype = (
-                    mimetypes.guess_type(img.name)[0].split('/'))
-                email_message.add_section(
-                    'Image', image=img.read(),
-                    image_type=content_subtype,
-                    image_filename=image_filename)
-
-            # Create secure SSL context
-            context = ssl.create_default_context()
-            with smtplib.SMTP_SSL(
-                    email_message.smtp, email_message.port,
-                    context=context) as server:
-                server.login(email_message.from_, email_password)
-                server.sendmail(
-                    email_message.from_, email_message.to_,
-                    email_message.message.as_string())
+        email_msg.process_name_email(
+            email_password, name_email, signature, image_filename,
+            message_template_html)
 
 
 if __name__ == "__main__":
