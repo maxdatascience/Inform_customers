@@ -155,19 +155,19 @@ class Email:
     """Actions necessary to create email."""
 
     def __init__(
-            self, smtp='smtp.gmail.com', port=465, from_=None,
+            self, from_, smtp='smtp.gmail.com', port=465,
             subject='Test', message=None):
         """Initialize email class.
 
+        :param from_: sender email
+        :type from_: str, optional
         :param smtp: SMTP host, defaults to 'smtp.gmail.com'
         :type smtp: str, optional
         :param port: SMTP port, defaults to 465
         :type port: int, optional
-        :param from_: sender email, defaults to None
-        :type from_: str, optional
         :param subject: email subject, defaults to 'Test'
         :type subject: str, optional
-        :param message: email body, defaults to None
+        :param message: email body, , defaults to None
         :type message: text template, optional
         """
         self.smtp = smtp
