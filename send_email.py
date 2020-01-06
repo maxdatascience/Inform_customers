@@ -1,7 +1,7 @@
 """Take template and address list from database and send email.
 
-__author__ = 'Max Data'
-__email__ = 'max.bigdata@yahoo.com'
+__author__ = 'Max Luckystar'
+__email__ = 'data.max.bigdata@yahoo.com'
 __ website__ = ''
 __ copyright__ = 'Copyright 2019, Max Data'
 __version__ = '1.0'
@@ -68,7 +68,7 @@ class PostgreSqlDb:
         try:
             self.connection = psycopg2.connect(
                 user=self.user, password=self.password,
-                host=self.host, port=self.port, db_=self.db_)
+                host=self.host, port=self.port, database=self.db_)
             self.cursor = self.connection.cursor()
             # Print PostgreSQL connection properties
             print(self.connection.get_dsn_parameters(), "\n")
@@ -123,7 +123,7 @@ class PostgreSqlDb:
             self.disconnect_db()
         return rows
 
-    def email_template(self, table, email_template, id_col_value):
+    def email_template(self, table, columns, where_statement):
         """Extract email template from PostgreSQL database.
 
         :param table: Table name with template
@@ -139,7 +139,7 @@ class PostgreSqlDb:
             self.connect_db()
             # Get template from database with requested id
             select = "SELECT {} FROM {} WHERE {}"
-            select = select.format(email_template, table, id_col_value)
+            select = select.format(columns, table, where_statement)
             self.cursor.execute(select)
             rows = self.cursor.fetchall()
         except psycopg2.Error as error:
@@ -237,7 +237,7 @@ class Email:
 
     def process_name_email(
             self, email_password, name_email, signature,
-            image_filename, message_template_html):
+            image_filename, message_template_html, test_mode=True):
         """Form and send email for each row.
 
         :param email_password: sender password
@@ -256,14 +256,14 @@ class Email:
             print("      {}: {}".format(i, row[:2]))
             self.email_create(
                 email_to=row[1], email_bcc=self.from_,
-                test=False, test_add=row[0],)
+                test=test_mode, test_add=row[0],)
             message_html = message_template_html.substitute(
                 PERSON_NAME=row[0].title(), SIGNATURE=signature)
             self.add_section('Text', 'html', msg=message_html)
 
             # Attach image file to email (inline)
             with open(image_filename, "rb") as img:
-                contenttype, content_subtype = (
+                _, content_subtype = (
                     mimetypes.guess_type(img.name)[0].split('/'))
                 self.add_section(
                     'Image', image=img.read(),
@@ -284,27 +284,35 @@ def main():
     # Set up database connection credentials
     user = "postgres"
     password = input("Enter your Database pass, please: ")
-    host = "localhost"
-    port = "5433"
-    db_ = "crm"
+    host = "localhost"   # default localhost
+    port = "5433"   # default 5432
+    db_ = "crm"   # default postgres
 
     # Set up your email connection credentials
     sender_email = input("Type your (sender) email address here: ")
     email_password = input(
         "Enter your %s password, here:" % sender_email)
     image_filename = 'NY.gif'  # Image file for attachment in email
-    subject = 'Happy New Year!'
-    signature = """\
-        ***<br>
-        """
+    subject = False
+    signature = False
 
     # Get email template from database by id
     postgresql_db = PostgreSqlDb(user, password, host, port, db_)
     email_template = postgresql_db.email_template(
-        'email_template', 'templ', 'id = 3')
+        'email_template', 'templ, subject, signature', 'id = 3')
     print("Email message template...")
     if email_template:
         message_template_html = Template(email_template[0][0])
+    try:
+        subject = email_template[0][1]
+        signature = email_template[0][2]
+    except IndexError:
+        print("subject and signature are not defined in the database")
+
+    if not subject:
+        subject = 'Happy New Year!'
+    if not signature:
+        signature = """***<br>"""
 
     # Get first name, personal email if exists otherwise work email
     name_email = postgresql_db.email_list_from_db(
@@ -318,7 +326,7 @@ def main():
 
         email_msg.process_name_email(
             email_password, name_email, signature, image_filename,
-            message_template_html)
+            message_template_html, test_mode=True)
 
 
 if __name__ == "__main__":
