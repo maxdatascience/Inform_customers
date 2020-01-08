@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Inform customers'
-copyright = '2019, Max Data'
-author = 'Max Data'
+project = 'Inform customers email system'
+copyright = '2019, Max Luckystar'
+author = 'Max Luckystar'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'

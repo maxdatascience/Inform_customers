@@ -14,9 +14,9 @@ Table of content
   * Problem
   * Goal
   * Solution
-    - View  `customer`
-    - Table `email_template`
-    - Program module
+  - View  `customer`
+  - Table `email_template`
+  - Program module
 - Getting Started
 - Prerequisites
 - Installing
@@ -32,22 +32,29 @@ information (like New Year congratulations and invitations) as well.
 `Goal`
 ------
 Create View  for list of customers for sending emails.
-Create customizable template for each event, store it in the PostgreSQL database.
+Create customizable template for each event, store it in the PostgreSQL
+database.
 Send emails by filling out the necessary variables:
-  sender email - send@google.com
-  sender email SMTP server, SMTP port. Default settings for google.com are done,
+**sender email** send@google.com
+**sender SMTP** SMTP server, SMTP port. Default settings for google.com
+are done,
 
 `Solution`
 -----------
-Design necessary Database structure for keeping the clients and email templates.
+Design necessary Database structure for keeping the clients and email
+templates.
 
 View `customer`
 -----------------
-Create View in the PostgreSQL database for customers with the following structure
+Create View in the PostgreSQL database for customers with the following
+structure
+
+
+
 
 +-----------------------------------------------------+
 | id_addr | first_name  |     email    |  email_work  |
-|---------|-------------|--------------|--------------|
++-----------------------------------------------------+
 | integer | varchar(45) | varchar(355) | varchar(355) |
 +-----------------------------------------------------+
 
@@ -56,17 +63,19 @@ Create View in the PostgreSQL database for customers with the following structur
 - **email** personal client's email
 - **email_work** client's work email
 
-columns could be named differently - in this case correct the program by putting
+columns could be named differently - in this case correct the program
+by putting
 your column names instead of those mentioned above accordingly.
 
 Table `email_template`
 ------------------------
-Create table `email_template` in the PostgreSQL database for email templates with the
+Create table `email_template` in the PostgreSQL database for email
+templates with the
 following structure
 
 +--------------------------------------------+
 |   id    | templ |   subject    | signature |
-|--------------------------------------------|
++--------------------------------------------+
 | integer | text  | varchar(255) |   text    |
 +--------------------------------------------+
 
@@ -75,8 +84,8 @@ following structure
 - **subject** subject line for emails
 - **signature** signature to put in the email
 
-- - Sample template (column 'templ')
--------------------------------------
+Sample template (column `templ`)
+---------------------------------
 - - <html>
 - -    <head></head>
 - -    <body>
@@ -93,26 +102,31 @@ following structure
 - -     </body>
 - - </html>
 
-- - Sample subject (column 'subject')
---------------------------------------
+Sample subject (column 'subject')
+----------------------------------
 - - Happy New Year!!!
 
-- - Sample signature (column 'signature')
+Sample signature (column 'signature')
 -----------------------------------------
-- - ***<br>
-- - Sincerely,<br>
-- - Test sender<br>
-- - Contacts<br>
+```
+***<br>
+Sincerely,<br>
+Test sender<br>
+Contacts<br>
+```
 
-- Program module
------------------
+Program module
+---------------
 Set up database connection credentials.
 Set up your email connection credentials
-Get template and default elements like subject, signature from PostgreSQL database
+Get template and default elements like subject, signature from
+PostgreSQL database
 Get list of name, email for sending email from PostgreSQL database
 Construct personalized email for everybody on the list
 Send personalized email using gmail.com service
-  For testing purposes use test=True variable with Email class to send email to yourself
+
+For testing purposes use test=True variable with Email class to send
+email to yourself
 
   For class' description and more details please see documentation
 
@@ -131,7 +145,8 @@ Prerequisites
 - Virtual environment package 'venv' to distinguish the project from other ones
 - PostgreSQL (v12.1 preferably)
 - PgAdmin 4
-- Gmail account (default) or other email account and necessary information to set up it
+- Gmail account (default) or other email account and necessary
+  information to set up it
 - Terminal
 
 Installing
@@ -152,8 +167,8 @@ Feel free to skip the step if you already have the tool installed
   verify the installation by typing 'python3 --version'
   .. image:: pic/python3.png
 
-- Install package manager 'pip'
-*******************************
+Install package manager 'pip'
+*****************************
   ```
   sudo apt-get update
   sudo apt-get install python3-pip
@@ -161,40 +176,44 @@ Feel free to skip the step if you already have the tool installed
   verify the installation was successful by typing 'pip --version'
   .. image:: pic/pip.png
 
-- Install virtual environment package
-*************************************
+Install virtual environment package
+***********************************
   ```
   sudo apt-get install python3-venv
   ```
-- Create virtual environment for project and activate it
-********************************************************
+
+Create virtual environment for project and activate it
+******************************************************
   ```
   python -m venv ./venv/project-folder
   source bin/activate
   ```
-  as the virtual environment is activated you'll see the name of your environment
-  first in the commmand prompt like where 'send_email' is the name of the virtual
+  as the virtual environment is activated you'll see the name of your
+  environment
+  first in the command prompt like where 'send_email' is the name of
+  the virtual
   environment
   .. image:: pic/venv.png
 
-- Set up and Run PostgreSQL
-***************************
-  Follow the process described here_:
-  .. _here: https://www.postgresql.org/docs/current/
+Set up and Run PostgreSQL
+*************************
+  Follow the process described here postgresql__:
+  .. _postgresql: https://www.postgresql.org/docs/current/
 
   verify the installation was successful by typing 'psql --version'
   .. image:: pic/postgresql.png
 
-- Set up PgAdmin 4
-******************
-  Follow the process described here_:
-  .. _here: https://www.pgadmin.org/docs/pgadmin4/4.16/index.html
+Set up PgAdmin 4
+****************
+  Follow the process described here pgadmin__:
+  .. _pgadmin: https://www.pgadmin.org/docs/pgadmin4/4.16/index.html
 
-  verify the installation was successful by typing 'pgAdmin4'. it start the pgAdmin4 server
+  verify the installation was successful by typing 'pgAdmin4'. it start
+  the pgAdmin4 server
   .. image:: pic/pgadmin4.png
 
-- Text editor
-*************
+Text editor
+***********
   Use the one you love or you can install atom
   ```
   pip install atom
@@ -202,22 +221,23 @@ Feel free to skip the step if you already have the tool installed
   verify the installation was successful by typing 'atom --version'
   .. image:: pic/atom.png
 
-- Clone repository from GitHub to your environment
-**************************************************
+Clone repository from GitHub to your environment
+************************************************
   ```
   git clone link-to-repository
   ```
   verify that you have the project in your folder you should see something like
   .. image:: pic/gitclone.png
 
-- Create PostgreSQL Database with Views an Tables mentioned in the 'Solution' part
-**********************************************************************************
-  Run pgAdmin4 and create database, tables and Views
-    Follow the process described in documentation_:
-    .. _documentation: https://www.pgadmin.org/docs/pgadmin4/4.16/index.html
+Create PostgreSQL Database with Views an Tables mentioned in the
+'Solution' part
+********************************************************************************
+Run pgAdmin4 and create database, tables and Views
+- Follow the process described in documentation__:
+.. _documentation: https://www.pgadmin.org/docs/pgadmin4/4.16/index.html
 
-- Make sure the Tables and Views contain necessary data to work with
-*********************************************************************
+Make sure the Tables and Views contain necessary data to work with
+*******************************************************************
   Run pgAdmin4 and execute SQL statement
   ```
   SELECT *
@@ -232,8 +252,8 @@ Feel free to skip the step if you already have the tool installed
   ```
   The query should return 1 row
 
-- Install necessary packages from 'requirements.txt'
-****************************************************
+Install necessary packages from 'requirements.txt'
+**************************************************
   ```
   pip install -r Inform_customers/requirements.txt
   ```
@@ -244,21 +264,32 @@ Congratulations, your environment is ready to test!!!
 Run tests to check everything is working properly
 
 
-End with an example of getting some data out of the system or using it for a little demo
+End with an example of getting some data out of the system or using it
+for a little demo
 
 Contributing
 ------------
-Contributing: Larger projects often have sections on contributing to their project, in which contribution instructions are outlined. Sometimes, this is a separate file. If you have specific contribution preferences, explain them so that other developers know how to best contribute to your work. To learn more about how to help others contribute, check out the guide for setting guidelines for repository contributors.
+Contributing: Larger projects often have sections on contributing to
+their project, in which contribution instructions are outlined.
+Sometimes, this is a separate file. If you have specific contribution
+preferences, explain them so that other developers know how to best
+contribute to your work. To learn more about how to help others
+contribute, check out the guide for setting guidelines for repository
+contributors.
 
 Credits
 -------
-Credits: Include a section for credits in order to highlight and link to the authors of your project.
+Credits: Include a section for credits in order to highlight and link
+to the authors of your project.
 
 License
 -------
-License: Finally, include a section for the license of your project. For more information on choosing a license, check out GitHub’s licensing guide!
+License: Finally, include a section for the license of your project.
+For more information on choosing a license, check out GitHub’s
+licensing guide!
 
 
 To do
 -----
-Indclude columns into database: image_filename varchar(50), image blob (image file)
+Include columns into database: image_filename varchar(50), image blob
+(image file)
