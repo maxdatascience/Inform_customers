@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Customer messaging system &mdash; Inform customers email system 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Inform customers email system
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rst/modules.html">Inform_customers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rst/help.html">Need help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rst/contact.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Inform customers email system</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Customer messaging system</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/st.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="customer-messaging-system">
+<h1>Customer messaging system<a class="headerlink" href="#customer-messaging-system" title="Permalink to this headline">¶</a></h1>
+<p>Inform customer about new features by sending emails</p>
+<dl>
+<dt><strong>Input:</strong> list of names, emails</dt><dd><p>message template, default signature, default subject</p>
+</dd>
+<dt><strong>Output:</strong> email message is sent to the customer, example below</dt><dd><img alt="pic/email_sent.png" src="pic/email_sent.png" />
+</dd>
+</dl>
+</div>
+<div class="section" id="table-of-content">
+<h1>Table of content<a class="headerlink" href="#table-of-content" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Description
+* Problem
+* Goal
+* Solution
+- View  <cite>customer</cite>
+- Table <cite>email_template</cite>
+- Program module</p></li>
+<li><p>Getting Started</p></li>
+<li><p>Prerequisites</p></li>
+<li><p>Installing</p></li>
+</ul>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="problem">
+<h2><cite>Problem</cite><a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
+<p>Customers need to be informed about new features available for them.
+System should send automatic emails to customers, it should allow to send event
+information (like New Year congratulations and invitations) as well.</p>
+</div>
+<div class="section" id="goal">
+<h2><cite>Goal</cite><a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<p>Create View  for list of customers for sending emails.
+Create customizable template for each event, store it in the PostgreSQL
+database.
+Send emails by filling out the necessary variables:
+<strong>sender email</strong> <a class="reference external" href="mailto:send&#37;&#52;&#48;google&#46;com">send<span>&#64;</span>google<span>&#46;</span>com</a>
+<strong>sender SMTP</strong> SMTP server, SMTP port. Default settings for google.com
+are done,</p>
+</div>
+<div class="section" id="solution">
+<h2><cite>Solution</cite><a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h2>
+<p>Design necessary Database structure for keeping the clients and email
+templates.</p>
+</div>
+<div class="section" id="view-customer">
+<h2>View <cite>customer</cite><a class="headerlink" href="#view-customer" title="Permalink to this headline">¶</a></h2>
+<p>Create View in the PostgreSQL database for customers with the following
+structure</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>id_addr | first_name  |     email    |  email_work</p></td>
+</tr>
+<tr class="row-even"><td><p>integer | varchar(45) | varchar(355) | varchar(355)</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>id_addr</strong> client unique id</p></li>
+<li><p><strong>first_name</strong> first name of the client</p></li>
+<li><p><strong>email</strong> personal client’s email</p></li>
+<li><p><strong>email_work</strong> client’s work email</p></li>
+</ul>
+<p>columns could be named differently - in this case correct the program
+by putting
+your column names instead of those mentioned above accordingly.</p>
+</div>
+<div class="section" id="table-email-template">
+<h2>Table <cite>email_template</cite><a class="headerlink" href="#table-email-template" title="Permalink to this headline">¶</a></h2>
+<p>Create table <cite>email_template</cite> in the PostgreSQL database for email
+templates with the
+following structure</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>id    | templ |   subject    | signature</p></td>
+</tr>
+<tr class="row-even"><td><p>integer | text  | varchar(255) |   text</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>id</strong> email template unique id</p></li>
+<li><p><strong>templ</strong> html email template</p></li>
+<li><p><strong>subject</strong> subject line for emails</p></li>
+<li><p><strong>signature</strong> signature to put in the email</p></li>
+</ul>
+</div>
+<div class="section" id="sample-template-column-templ">
+<h2>Sample template (column <cite>templ</cite>)<a class="headerlink" href="#sample-template-column-templ" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><ul>
+<li><p>&lt;html&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;head&gt;&lt;/head&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;body&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;p&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Dear ${PERSON_NAME},&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>It is New Year time!&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Have a fun and unforgettable moments&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>with your family and friends.&lt;br&gt;&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>Happy New Year!!!&lt;br&gt;&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;img src=”<a class="reference external" href="cid:image_filename">cid:image_filename</a>”&gt;&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>${SIGNATURE}&lt;br&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;/p&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;/body&gt;</p></li>
+</ul>
+</li>
+<li><ul>
+<li><p>&lt;/html&gt;</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="sample-subject-column-subject">
+<h2>Sample subject (column ‘subject’)<a class="headerlink" href="#sample-subject-column-subject" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><ul>
+<li><p>Happy New Year!!!</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="sample-signature-column-signature">
+<h2>Sample signature (column ‘signature’)<a class="headerlink" href="#sample-signature-column-signature" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">***&lt;br&gt;</span>
+<span class="pre">Sincerely,&lt;br&gt;</span>
+<span class="pre">Test</span> <span class="pre">sender&lt;br&gt;</span>
+<span class="pre">Contacts&lt;br&gt;</span>
+<span class="pre">`</span></code></p>
+</div>
+<div class="section" id="program-module">
+<h2>Program module<a class="headerlink" href="#program-module" title="Permalink to this headline">¶</a></h2>
+<p>Set up database connection credentials.
+Set up your email connection credentials
+Get template and default elements like subject, signature from
+PostgreSQL database
+Get list of name, email for sending email from PostgreSQL database
+Construct personalized email for everybody on the list
+Send personalized email using gmail.com service</p>
+<p>For testing purposes use test=True variable with Email class to send
+email to yourself</p>
+<blockquote>
+<div><p>For class’ description and more details please see documentation</p>
+</div></blockquote>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>These instructions will get you a copy of the project up and running on your
+local machine for development and testing purposes.
+See deployment part for notes on how to deploy the project on a live system.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Linux - Ubuntu</p></li>
+<li><p>GitHub</p></li>
+<li><p>Python v 3.x</p></li>
+<li><p>pip (package manager)</p></li>
+<li><p>Virtual environment package ‘venv’ to distinguish the project from other ones</p></li>
+<li><p>PostgreSQL (v12.1 preferably)</p></li>
+<li><p>PgAdmin 4</p></li>
+<li><p>Gmail account (default) or other email account and necessary
+information to set up it</p></li>
+<li><p>Terminal</p></li>
+</ul>
+</div>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>Feel free to skip the step if you already have the tool installed</p>
+<ul>
+<li><p>Install and Run GitHub
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">git</span>
+<span class="pre">`</span></code>
+verify the installation was successful by typing ‘github –version’
+.. image:: pic/git_install.png</p></li>
+<li><p><strong>Install Python 3</strong></p>
+<p>Python 3 is already installed in Linux
+verify the installation by typing ‘python3 –version’
+.. image:: pic/python3.png</p>
+</li>
+</ul>
+<div class="section" id="install-package-manager-pip">
+<h3>Install package manager ‘pip’<a class="headerlink" href="#install-package-manager-pip" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python3-pip</span>
+<span class="pre">`</span></code>
+verify the installation was successful by typing ‘pip –version’
+.. image:: pic/pip.png</p>
+</div></blockquote>
+</div>
+<div class="section" id="install-virtual-environment-package">
+<h3>Install virtual environment package<a class="headerlink" href="#install-virtual-environment-package" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python3-venv</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+</div>
+<div class="section" id="create-virtual-environment-for-project-and-activate-it">
+<h3>Create virtual environment for project and activate it<a class="headerlink" href="#create-virtual-environment-for-project-and-activate-it" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">python</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">./venv/project-folder</span>
+<span class="pre">source</span> <span class="pre">bin/activate</span>
+<span class="pre">`</span></code>
+as the virtual environment is activated you’ll see the name of your
+environment
+first in the command prompt like where ‘send_email’ is the name of
+the virtual
+environment
+.. image:: pic/venv.png</p>
+</div></blockquote>
+</div>
+<div class="section" id="set-up-and-run-postgresql">
+<h3>Set up and Run PostgreSQL<a class="headerlink" href="#set-up-and-run-postgresql" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Follow the process described here <a href="#id1"><span class="problematic" id="id2">postgresql__</span></a>:
+.. _postgresql: <a class="reference external" href="https://www.postgresql.org/docs/current/">https://www.postgresql.org/docs/current/</a></p>
+<p>verify the installation was successful by typing ‘psql –version’
+.. image:: pic/postgresql.png</p>
+</div></blockquote>
+</div>
+<div class="section" id="set-up-pgadmin-4">
+<h3>Set up PgAdmin 4<a class="headerlink" href="#set-up-pgadmin-4" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Follow the process described here <a href="#id1"><span class="problematic" id="id3">pgadmin__</span></a>:
+.. _pgadmin: <a class="reference external" href="https://www.pgadmin.org/docs/pgadmin4/4.16/index.html">https://www.pgadmin.org/docs/pgadmin4/4.16/index.html</a></p>
+<p>verify the installation was successful by typing ‘pgAdmin4’. it start
+the pgAdmin4 server
+.. image:: pic/pgadmin4.png</p>
+</div></blockquote>
+</div>
+<div class="section" id="text-editor">
+<h3>Text editor<a class="headerlink" href="#text-editor" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Use the one you love or you can install atom
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">atom</span>
+<span class="pre">`</span></code>
+verify the installation was successful by typing ‘atom –version’
+.. image:: pic/atom.png</p>
+</div></blockquote>
+</div>
+<div class="section" id="clone-repository-from-github-to-your-environment">
+<h3>Clone repository from GitHub to your environment<a class="headerlink" href="#clone-repository-from-github-to-your-environment" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">link-to-repository</span>
+<span class="pre">`</span></code>
+verify that you have the project in your folder you should see something like
+.. image:: pic/gitclone.png</p>
+</div></blockquote>
+<p>Create PostgreSQL Database with Views an Tables mentioned in the
+‘Solution’ part
+<strong>****************************************************************************</strong>
+Run pgAdmin4 and create database, tables and Views
+- Follow the process described in <a href="#id1"><span class="problematic" id="id4">documentation__</span></a>:
+.. _documentation: <a class="reference external" href="https://www.pgadmin.org/docs/pgadmin4/4.16/index.html">https://www.pgadmin.org/docs/pgadmin4/4.16/index.html</a></p>
+</div>
+<div class="section" id="make-sure-the-tables-and-views-contain-necessary-data-to-work-with">
+<h3>Make sure the Tables and Views contain necessary data to work with<a class="headerlink" href="#make-sure-the-tables-and-views-contain-necessary-data-to-work-with" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Run pgAdmin4 and execute SQL statement
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">SELECT</span> <span class="pre">*</span>
+<span class="pre">FROM</span> <span class="pre">customer</span>
+<span class="pre">LIMIT</span> <span class="pre">1;</span>
+<span class="pre">`</span></code>
+The query should return 1 row
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">SELECT</span> <span class="pre">*</span>
+<span class="pre">FROM</span> <span class="pre">email_template</span>
+<span class="pre">LIMIT</span> <span class="pre">1;</span>
+<span class="pre">`</span></code>
+The query should return 1 row</p>
+</div></blockquote>
+</div>
+<div class="section" id="install-necessary-packages-from-requirements-txt">
+<h3>Install necessary packages from ‘requirements.txt’<a class="headerlink" href="#install-necessary-packages-from-requirements-txt" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">Inform_customers/requirements.txt</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="congratulations-your-environment-is-ready-to-test">
+<h2>Congratulations, your environment is ready to test!!!<a class="headerlink" href="#congratulations-your-environment-is-ready-to-test" title="Permalink to this headline">¶</a></h2>
+<p>Run tests to check everything is working properly</p>
+<p>End with an example of getting some data out of the system or using it
+for a little demo</p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Contributing: Larger projects often have sections on contributing to
+their project, in which contribution instructions are outlined.
+Sometimes, this is a separate file. If you have specific contribution
+preferences, explain them so that other developers know how to best
+contribute to your work. To learn more about how to help others
+contribute, check out the guide for setting guidelines for repository
+contributors.</p>
+</div>
+<div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<p>Credits: Include a section for credits in order to highlight and link
+to the authors of your project.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>License: Finally, include a section for the license of your project.
+For more information on choosing a license, check out GitHub’s
+licensing guide!</p>
+</div>
+<div class="section" id="to-do">
+<h2>To do<a class="headerlink" href="#to-do" title="Permalink to this headline">¶</a></h2>
+<p>Include columns into database: image_filename varchar(50), image blob
+(image file)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Max Luckystar
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

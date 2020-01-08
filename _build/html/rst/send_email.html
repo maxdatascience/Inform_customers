@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>send_email module &mdash; Inform customers email system 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Need help" href="help.html" />
+    <link rel="prev" title="Inform_customers" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Inform customers email system
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Inform_customers</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">send_email module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Inform customers email system</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Inform_customers</a> &raquo;</li>
+        
+      <li>send_email module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/rst/send_email.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-send_email">
+<span id="send-email-module"></span><h1>send_email module<a class="headerlink" href="#module-send_email" title="Permalink to this headline">¶</a></h1>
+<p>Take template and address list from database and send email.</p>
+<p>__author__ = ‘Max Luckystar’
+__email__ = <a class="reference external" href="mailto:'data&#46;max&#46;bigdata&#37;&#52;&#48;yahoo&#46;com">‘data<span>&#46;</span>max<span>&#46;</span>bigdata<span>&#64;</span>yahoo<span>&#46;</span>com</a>’
+__ <a href="#id1"><span class="problematic" id="id2">website__</span></a> = ‘’
+__ <a href="#id1"><span class="problematic" id="id3">copyright__</span></a> = ‘Copyright 2019, Max Data’
+__version__ = ‘1.0’</p>
+<dl class="class">
+<dt id="send_email.Email">
+<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">Email</code><span class="sig-paren">(</span><em class="sig-param">from_</em>, <em class="sig-param">smtp='smtp.gmail.com'</em>, <em class="sig-param">port=465</em>, <em class="sig-param">subject='Test'</em>, <em class="sig-param">message=None</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Actions necessary to create email.</p>
+<dl class="method">
+<dt id="send_email.Email.add_section">
+<code class="sig-name descname">add_section</code><span class="sig-paren">(</span><em class="sig-param">section='Multipart'</em>, <em class="sig-param">subtype='html'</em>, <em class="sig-param">msg=None</em>, <em class="sig-param">image=None</em>, <em class="sig-param">image_type=None</em>, <em class="sig-param">image_filename=None</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email.add_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add part into multipart email message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>str</em><em>, </em><em>optional</em>) – type of part email message to add, defaults to
+‘Multipart’</p></li>
+<li><p><strong>subtype</strong> (<em>str</em><em>, </em><em>optional</em>) – body message type, defaults to ‘html’</p></li>
+<li><p><strong>msg</strong> (<em>str</em><em>, </em><em>optional</em>) – contend of the message, defaults to None</p></li>
+<li><p><strong>image</strong> (<em>str</em><em>, </em><em>optional</em>) – image file name, defaults to None</p></li>
+<li><p><strong>image_type</strong> (<em>str</em><em>, </em><em>optional</em>) – content of image file, defaults to None</p></li>
+<li><p><strong>image_filename</strong> (<em>str</em><em>, </em><em>optional</em>) – image file name, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="send_email.Email.email_create">
+<code class="sig-name descname">email_create</code><span class="sig-paren">(</span><em class="sig-param">email_to</em>, <em class="sig-param">email_bcc</em>, <em class="sig-param">test_add</em>, <em class="sig-param">test=True</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email.email_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Base part of email message, filling the Header.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email_to</strong> (<em>str</em>) – receiver email</p></li>
+<li><p><strong>email_bcc</strong> (<em>str</em>) – blind carbon copy receiver</p></li>
+<li><p><strong>test_add</strong> (<em>str</em>) – suffix add to email for testing with google</p></li>
+<li><p><strong>test</strong> (<em>bool</em><em>, </em><em>optional</em>) – mode to run function, defaults to True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="send_email.Email.process_name_email">
+<code class="sig-name descname">process_name_email</code><span class="sig-paren">(</span><em class="sig-param">email_password</em>, <em class="sig-param">name_email</em>, <em class="sig-param">signature</em>, <em class="sig-param">image_filename</em>, <em class="sig-param">message_template_html</em>, <em class="sig-param">test_mode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email.process_name_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Form and send email for each row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email_password</strong> (<em>str</em>) – sender password</p></li>
+<li><p><strong>name_email</strong> (<em>dataset</em><em>, </em><em>optional</em>) – name and email, defaults to None</p></li>
+<li><p><strong>signature</strong> (<em>text</em>) – signature in the email template</p></li>
+<li><p><strong>image_filename</strong> (<em>str</em>) – image file name</p></li>
+<li><p><strong>message_template_html</strong> (<em>text</em>) – contend of the message template</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="send_email.PostgreSqlDb">
+<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">PostgreSqlDb</code><span class="sig-paren">(</span><em class="sig-param">user</em>, <em class="sig-param">password</em>, <em class="sig-param">host='localhost'</em>, <em class="sig-param">port='5432'</em>, <em class="sig-param">db_='postgres'</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Actions necessary to get data from PostgreSQL database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataset containing selected records</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dataset</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="send_email.PostgreSqlDb.connect_db">
+<code class="sig-name descname">connect_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.connect_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to PostgreSQL database.</p>
+<p>Open connection to PostgreSQL server with parameters in the
+object and inform about the version of the database engine</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="send_email.PostgreSqlDb.disconnect_db">
+<code class="sig-name descname">disconnect_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.disconnect_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close connection to PostgreSQL server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="send_email.PostgreSqlDb.email_list_from_db">
+<code class="sig-name descname">email_list_from_db</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">firstname_col='first_name'</em>, <em class="sig-param">email_col='email'</em>, <em class="sig-param">work_email_col='work_email'</em>, <em class="sig-param">condition=None</em>, <em class="sig-param">orderby_col='id'</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.email_list_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract first_name, email from PostgreSQL database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – Table name</p></li>
+<li><p><strong>firstname_col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name with first name, defaults to
+‘first_name’</p></li>
+<li><p><strong>email_col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name with email, defaults to ‘email’</p></li>
+<li><p><strong>work_email_col</strong> (<em>str</em><em>, </em><em>optional</em>) – Column name with work email, defaults to
+‘work_email’</p></li>
+<li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – WHERE clause filter, defaults to None</p></li>
+<li><p><strong>orderby_col</strong> (<em>str</em><em>, </em><em>optional</em>) – Sort column name, defaults to ‘id’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataset with first name and email or work email</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="send_email.PostgreSqlDb.email_template">
+<code class="sig-name descname">email_template</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">columns</em>, <em class="sig-param">where_statement</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.email_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract email template from PostgreSQL database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – Table name with template</p></li>
+<li><p><strong>email_template</strong> (<em>str</em>) – Column name with template</p></li>
+<li><p><strong>id_col_value</strong> (<em>str</em>) – WHERE clause filter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataset with email template</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="send_email.main">
+<code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#send_email.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute main module.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="help.html" class="btn btn-neutral float-right" title="Need help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="Inform_customers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Max Luckystar
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
