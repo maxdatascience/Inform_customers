@@ -154,14 +154,14 @@
   <div class="section" id="module-send_email">
 <span id="send-email-module"></span><h1>send_email module<a class="headerlink" href="#module-send_email" title="Permalink to this headline">¶</a></h1>
 <p>Take template and address list from database and send email.</p>
-<p>__author__ = ‘Max Data’
-__email__ = <a class="reference external" href="mailto:'max&#46;bigdata&#37;&#52;&#48;yahoo&#46;com">‘max<span>&#46;</span>bigdata<span>&#64;</span>yahoo<span>&#46;</span>com</a>’
+<p>__author__ = ‘Max Luckystar’
+__email__ = <a class="reference external" href="mailto:'data&#46;max&#46;bigdata&#37;&#52;&#48;yahoo&#46;com">‘data<span>&#46;</span>max<span>&#46;</span>bigdata<span>&#64;</span>yahoo<span>&#46;</span>com</a>’
 __ <a href="#id1"><span class="problematic" id="id2">website__</span></a> = ‘’
 __ <a href="#id1"><span class="problematic" id="id3">copyright__</span></a> = ‘Copyright 2019, Max Data’
 __version__ = ‘1.0’</p>
 <dl class="class">
 <dt id="send_email.Email">
-<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">Email</code><span class="sig-paren">(</span><em class="sig-param">smtp='smtp.gmail.com'</em>, <em class="sig-param">port=465</em>, <em class="sig-param">from_=None</em>, <em class="sig-param">subject='Test'</em>, <em class="sig-param">message=None</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">Email</code><span class="sig-paren">(</span><em class="sig-param">from_</em>, <em class="sig-param">smtp='smtp.gmail.com'</em>, <em class="sig-param">port=465</em>, <em class="sig-param">subject='Test'</em>, <em class="sig-param">message=None</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Actions necessary to create email.</p>
 <dl class="method">
@@ -199,11 +199,28 @@ __version__ = ‘1.0’</p>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="send_email.Email.process_name_email">
+<code class="sig-name descname">process_name_email</code><span class="sig-paren">(</span><em class="sig-param">email_password</em>, <em class="sig-param">name_email</em>, <em class="sig-param">signature</em>, <em class="sig-param">image_filename</em>, <em class="sig-param">message_template_html</em>, <em class="sig-param">test_mode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.Email.process_name_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Form and send email for each row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>email_password</strong> (<em>str</em>) – sender password</p></li>
+<li><p><strong>name_email</strong> (<em>dataset</em><em>, </em><em>optional</em>) – name and email, defaults to None</p></li>
+<li><p><strong>signature</strong> (<em>text</em>) – signature in the email template</p></li>
+<li><p><strong>image_filename</strong> (<em>str</em>) – image file name</p></li>
+<li><p><strong>message_template_html</strong> (<em>text</em>) – contend of the message template</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="send_email.PostgreSqlDb">
-<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">PostgreSqlDb</code><span class="sig-paren">(</span><em class="sig-param">user</em>, <em class="sig-param">password</em>, <em class="sig-param">host='localhost'</em>, <em class="sig-param">port='5432'</em>, <em class="sig-param">database='postgres'</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">PostgreSqlDb</code><span class="sig-paren">(</span><em class="sig-param">user</em>, <em class="sig-param">password</em>, <em class="sig-param">host='localhost'</em>, <em class="sig-param">port='5432'</em>, <em class="sig-param">db_='postgres'</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Actions necessary to get data from PostgreSQL database.</p>
 <dl class="field-list simple">
@@ -256,7 +273,7 @@ object and inform about the version of the database engine</p>
 
 <dl class="method">
 <dt id="send_email.PostgreSqlDb.email_template">
-<code class="sig-name descname">email_template</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">email_template</em>, <em class="sig-param">id_col_value</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.email_template" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">email_template</code><span class="sig-paren">(</span><em class="sig-param">table</em>, <em class="sig-param">columns</em>, <em class="sig-param">where_statement</em><span class="sig-paren">)</span><a class="headerlink" href="#send_email.PostgreSqlDb.email_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract email template from PostgreSQL database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,6 +292,12 @@ object and inform about the version of the database engine</p>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="send_email.main">
+<code class="sig-prename descclassname">send_email.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#send_email.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute main module.</p>
 </dd></dl>
 
 </div>

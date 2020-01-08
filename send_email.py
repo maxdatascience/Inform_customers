@@ -299,7 +299,7 @@ def main():
     # Get email template from database by id
     postgresql_db = PostgreSqlDb(user, password, host, port, db_)
     email_template = postgresql_db.email_template(
-        'email_template', 'templ, subject, signature', 'id = 3')
+        'email_template', 'templ, subject, signature', 'id = 5')
     print("Email message template...")
     if email_template:
         message_template_html = Template(email_template[0][0])
