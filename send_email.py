@@ -1,9 +1,9 @@
 """Take template and address list from database and send email.
 
 __author__ = 'Max Luckystar'
-__email__ = 'data.max.bigdata@yahoo.com'
+__email__ = 'data.maxluckystar@gmail.com'
 __ website__ = ''
-__ copyright__ = 'Copyright 2019, Max Data'
+__ copyright__ = 'Copyright 2019, Max Luckystar'
 __version__ = '1.0'
 
 """
