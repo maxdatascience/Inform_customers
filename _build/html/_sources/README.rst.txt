@@ -8,7 +8,7 @@ default subject
 
 **Output:** email message is sent to the customer, example below
 
-      .. image:: pic/email_sent.png
+      .. image:: ./pic/email_sent.png
 
 Table of content
 ----------------
@@ -186,7 +186,7 @@ Install and Run GitHub
   ```
   verify the installation was successful by typing `github --version`
 
-  .. image:: pic/git_install.png
+  .. image:: ./pic/git_install.png
 
 Install Python 3
 ~~~~~~~~~~~~~~~~
@@ -194,7 +194,7 @@ Install Python 3
   Python 3 is installed in Linux.
   verify the installation by typing `python3 --version`
 
-  .. image:: pic/python3.png
+  .. image:: ./pic/python3.png
 
 Install package manager ``pip``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -204,7 +204,7 @@ Install package manager ``pip``
   ```
   verify the installation was successful by typing `pip --version`
 
-  .. image:: pic/pip.png
+  .. image:: ./pic/pip.png
 
 Set up virtual environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,7 +224,7 @@ Create and activate virtual environment
   first in the command prompt like where `send_email` is the name of
   the virtual environment
 
-  .. image:: pic/venv.png
+  .. image:: ./pic/venv.png
 
 Set up and Run PostgreSQL
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -234,7 +234,7 @@ Set up and Run PostgreSQL
 
   verify the installation was successful by typing `psql --version`
 
-  .. image:: pic/postgresql.png
+  .. image:: ./pic/postgresql.png
 
 Set up PgAdmin 4
 ~~~~~~~~~~~~~~~~
@@ -245,7 +245,7 @@ Set up PgAdmin 4
   verify the installation was successful by typing `pgAdmin4`. it start
   the pgAdmin4 server
 
-  .. image:: pic/pgadmin4.png
+  .. image:: ./pic/pgadmin4.png
 
 Text editor
 ~~~~~~~~~~~
@@ -255,7 +255,7 @@ Text editor
   ```
   verify the installation was successful by typing `atom --version`
 
-  .. image:: pic/atom.png
+  .. image:: ./pic/atom.png
 
 Clone repository from GitHub to environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,7 +264,7 @@ Clone repository from GitHub to environment
   ```
   verify that you have the project in your folder you should see something like
 
-  .. image:: pic/gitclone.png
+  .. image:: ./pic/gitclone.png
 
 Create PostgreSQL Database Views an Tables mentioned in the **Solution**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -301,7 +301,7 @@ Install necessary packages
 Run tests to check everything is working properly
 .................................................
 
-.. image:: pic/tests.png
+.. image:: ./pic/test.png
 
 Credits
 -------
