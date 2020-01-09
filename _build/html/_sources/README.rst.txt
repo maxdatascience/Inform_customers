@@ -304,10 +304,10 @@ Run tests to check everything is working properly
 .. image:: ./pic/test.png
 
 Credits
--------
+.......
 Thanks to `Akela73` for providing `NY.gif` picture form emails.
 
 To do
------
+.....
 Include columns into database: ``image_filename``, ``image_blob`` to
 keep image in the database
