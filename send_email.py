@@ -76,9 +76,11 @@ class PostgreSqlDb:
             self.cursor.execute("SELECT version();")
             record = self.cursor.fetchone()
             print("You are connected to - ", record, "\n")
+            return None
         except psycopg2.Error as error:
             print("Error while connecting to PostgreSQL", error)
             self.disconnect_db()
+            return error
 
     def email_list_from_db(
                 self, table, firstname_col='first_name',
