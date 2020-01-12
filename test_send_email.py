@@ -3,7 +3,6 @@
 __author__ = 'Max Luckystar'
 __email__ = 'data.maxluckystar@gmail.com'
 __ website__ = ''
-__ copyright__ = 'Copyright 2019, Max Luckystar'
 __version__ = '1.0'
 
 """
@@ -121,24 +120,20 @@ class TestEmail(unittest.TestCase):
     #     image_type = content_subtype
     #     image_filename = image_filename
     #     self.emil_1.add_section()
-    
+
     #     self.email_1.add_section(
     #         'Text', 'html', 'Test. Dear Test, TestSignature end.')
     #     self.email_1.add_section(
     #         'Image', image, image_type, image_filename)
 
-
-
-
     #     self.email_2.add_section(
     #         'Text', 'html', 'Test. Dear Test, TestSignature end.')
     #     self.email_2.add_section(
     #         'Image', image, image_type, image_filename)
-
 
     def test_email_create(self):
-        self.email_1.email_create('Test@Test.com', 'Test@Test.com',
-        'Test', True)
+        self.email_1.email_create(
+            'Test@Test.com', 'Test@Test.com', 'Test', True)
 
     # def test_process_name_email(self):
     #     pass
