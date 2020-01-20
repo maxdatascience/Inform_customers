@@ -1,6 +1,6 @@
-title: Customer messaging system
+Title: Customer messaging system
 
-Inform customer about new features by sending emails
+**Inform customer about new features by sending emails taken from PostgreSQL DB**
 
 **Input:** list of names, emails, message template, default signature,
 default subject
